@@ -104,7 +104,7 @@ const TreatmentsPage = () => {
                 <Container maxWidth="lg">
                     <Grid container spacing={4}>
                         {treatments.map((treatment, index) => (
-                            <Grid item xs={12} sm={6} lg={4} key={index} display="flex" justifyContent="center">
+                            <Grid item xs={12} sm={4} key={index} display="flex" justifyContent="center">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
