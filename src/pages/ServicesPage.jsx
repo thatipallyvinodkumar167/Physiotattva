@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 import {
     Box,
     Container,
@@ -89,7 +89,6 @@ const Services = ({ limit }) => {
                             >
                                 <Card
                                     sx={{
-                                        width: 400,
                                         position: 'relative',
                                         height: '100%',
                                         display: 'flex',
@@ -172,7 +171,7 @@ const Services = ({ limit }) => {
                                                 Explore Details
                                             </Button>
                                         </Box>
-                                      </CardContent>
+                                    </CardContent>
 
                                     <Box sx={{
                                         position: 'absolute',
