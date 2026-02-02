@@ -89,6 +89,9 @@ const Services = ({ limit }) => {
                             >
                                 <Card
                                     sx={{
+                                        maxWidth: 400,
+                                        width: '100%',
+                                        mx: 'auto',
                                         position: 'relative',
                                         height: '100%',
                                         display: 'flex',
