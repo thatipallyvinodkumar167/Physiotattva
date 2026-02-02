@@ -28,7 +28,6 @@ function App() {
         <Route path="/blogs" element={<BlogsPage />} />
         <Route path="/book-appointment" element={<BookAppointment />} />
 
-        <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/:slug" element={<ServiceDetails />} />
       </Routes>
 
