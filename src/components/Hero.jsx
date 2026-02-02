@@ -36,7 +36,7 @@ const Hero = () => {
             rgba(0, 0, 0, 0.55),
             rgba(0, 0, 0, 0.55)
           ),
-          url("/physiotattva/images/hero-bg.png")
+          url("/images/hero-bg.png")
         `,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -56,7 +56,7 @@ const Hero = () => {
                 fontSize: { xs: "2.4rem", md: "3.6rem" },
               }}
             >
-              Sri Sai Priya Physiotherapy &  
+              Sri Sai Priya Physiotherapy &
               <br />
               Rehabilitation Center
             </Typography>
