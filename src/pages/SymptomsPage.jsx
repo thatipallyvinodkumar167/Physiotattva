@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     Box,
     Container,
@@ -7,387 +7,351 @@ import {
     Card,
     CardContent,
     Button,
-    Tabs,
-    Tab,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
+    TextField,
+    InputAdornment,
     Chip,
     useTheme,
+    Stack,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Alpha,
 } from '@mui/material';
-import { motion } from 'framer-motion';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { motion, AnimatePresence } from 'framer-motion';
+import SearchIcon from '@mui/icons-material/Search';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Link as RouterLink } from 'react-router-dom';
 
-const symptomCategories = [
-    {
-        category: 'Back & Spine',
-        symptoms: [
-            {
-                name: 'Lower Back Pain',
-                description: 'Persistent or recurring pain in the lumbar region affecting daily activities.',
-                causes: ['Poor posture', 'Muscle strain', 'Herniated disc', 'Sciatica'],
-                severity: 'Common',
-            },
-            {
-                name: 'Neck Stiffness',
-                description: 'Restricted movement and discomfort in the cervical spine area.',
-                causes: ['Poor sleeping position', 'Prolonged screen time', 'Whiplash', 'Arthritis'],
-                severity: 'Common',
-            },
-            {
-                name: 'Radiating Leg Pain',
-                description: 'Pain that travels from the back down through the legs.',
-                causes: ['Sciatica', 'Nerve compression', 'Spinal stenosis', 'Disc problems'],
-                severity: 'Moderate',
-            },
-        ],
-    },
-    {
-        category: 'Joints & Muscles',
-        symptoms: [
-            {
-                name: 'Knee Pain',
-                description: 'Discomfort, swelling, or stiffness in the knee joint.',
-                causes: ['Arthritis', 'Ligament injury', 'Meniscus tear', 'Overuse'],
-                severity: 'Common',
-            },
-            {
-                name: 'Shoulder Pain',
-                description: 'Pain and limited mobility in the shoulder area.',
-                causes: ['Frozen shoulder', 'Rotator cuff injury', 'Bursitis', 'Tendinitis'],
-                severity: 'Common',
-            },
-            {
-                name: 'Muscle Spasms',
-                description: 'Involuntary muscle contractions causing pain and tightness.',
-                causes: ['Dehydration', 'Overexertion', 'Electrolyte imbalance', 'Injury'],
-                severity: 'Moderate',
-            },
-        ],
-    },
-    {
-        category: 'Neurological',
-        symptoms: [
-            {
-                name: 'Numbness & Tingling',
-                description: 'Loss of sensation or pins and needles feeling in limbs.',
-                causes: ['Nerve compression', 'Carpal tunnel', 'Diabetes', 'Vitamin deficiency'],
-                severity: 'Moderate',
-            },
-            {
-                name: 'Balance Issues',
-                description: 'Difficulty maintaining stability while standing or walking.',
-                causes: ['Inner ear problems', 'Stroke effects', 'Neuropathy', 'Muscle weakness'],
-                severity: 'Serious',
-            },
-            {
-                name: 'Weakness in Limbs',
-                description: 'Reduced strength affecting arm or leg function.',
-                causes: ['Nerve damage', 'Stroke', 'Muscle disorders', 'Spinal issues'],
-                severity: 'Serious',
-            },
-        ],
-    },
-    {
-        category: 'Post-Surgery',
-        symptoms: [
-            {
-                name: 'Limited Range of Motion',
-                description: 'Restricted movement following surgical procedures.',
-                causes: ['Scar tissue', 'Muscle atrophy', 'Joint stiffness', 'Swelling'],
-                severity: 'Expected',
-            },
-            {
-                name: 'Post-Operative Pain',
-                description: 'Discomfort at the surgical site affecting recovery.',
-                causes: ['Tissue healing', 'Inflammation', 'Nerve sensitivity', 'Muscle tension'],
-                severity: 'Expected',
-            },
-            {
-                name: 'Swelling & Inflammation',
-                description: 'Fluid accumulation causing discomfort and stiffness.',
-                causes: ['Normal healing', 'Infection risk', 'Poor circulation', 'Overactivity'],
-                severity: 'Common',
-            },
-        ],
-    },
-];
+// Icons for categories
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
+import SportsMartialArtsIcon from '@mui/icons-material/SportsMartialArts';
+import ElderlyIcon from '@mui/icons-material/Elderly';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import ChildCareIcon from '@mui/icons-material/ChildCare';
+import HealingIcon from '@mui/icons-material/Healing';
 
-const getSeverityColor = (severity) => {
-    switch (severity) {
-        case 'Serious': return 'error';
-        case 'Moderate': return 'warning';
-        case 'Expected': return 'info';
-        default: return 'success';
+const symptomData = [
+    {
+        id: 'spine',
+        title: 'Spine & Back',
+        icon: <AccessibilityIcon sx={{ fontSize: 40 }} />,
+        image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800',
+        items: [
+            { name: 'Lower Back Pain', desc: 'Dull ache or sharp pain in the lumbar region, often caused by muscle strain or disc issues.', action: 'Physiotherapy & Core Stability' },
+            { name: 'Neck Pain & Stiffness', desc: 'Discomfort and restricted movement in the neck, common from poor posture or whiplash.', action: 'Manual Therapy & Posture Correction' },
+            { name: 'Sciatica', desc: 'Pain radiating from the lower back through the hips and down each leg.', action: 'Nerve Flossing & Specialized Stretches' },
+            { name: 'Scoliosis', desc: 'Sideways curvature of the spine often requiring specialized corrective exercises.', action: 'Schroth Method & Strengthening' }
+        ]
+    },
+    {
+        id: 'joints',
+        title: 'Joints & Bones',
+        icon: <AccessibilityIcon sx={{ fontSize: 40 }} />,
+        image: 'https://images.unsplash.com/photo-1576091160550-217359f4ecf8?w=800',
+        items: [
+            { name: 'Knee Pain (OA/ACL)', desc: 'Stiffness, swelling, or instability in the knee joint.', action: 'Joint Mobilization & Strengthening' },
+            { name: 'Shoulder Impingement', desc: 'Pain when lifting the arm, often due to rotator cuff issues.', action: 'Shoulder Stability Rehab' },
+            { name: 'Hip Arthritis', desc: 'Deep groin pain or stiffness making walking difficult.', action: 'Hydrotherapy & Mobility Drill' },
+            { name: 'Ankle Sprains', desc: 'Tearing or stretching of ligaments after a twist.', action: 'Balance & Proprioception Training' }
+        ]
+    },
+    {
+        id: 'sports',
+        title: 'Sports Injuries',
+        icon: <SportsMartialArtsIcon sx={{ fontSize: 40 }} />,
+        image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800',
+        items: [
+            { name: 'Ligament Tears', desc: 'Complete or partial tears of ACL, MCL, or PCL.', action: 'Post-Op Sport Rehab' },
+            { name: 'Tennis/Golfer\'s Elbow', desc: 'Overuse injury causing pain around the elbow joint.', action: 'Eccentric Loading Protocols' },
+            { name: 'Muscle Strains', desc: 'Pulled hamstrings, quads, or calf muscles.', action: 'Soft Tissue Release & Taping' },
+            { name: 'Shin Splints', desc: 'Pain along the shin bone from repetitive stress.', action: 'Gait Analysis & Footwear Correction' }
+        ]
+    },
+    {
+        id: 'neuro',
+        title: 'Neuro Rehab',
+        icon: <PsychologyIcon sx={{ fontSize: 40 }} />,
+        image: 'https://images.unsplash.com/photo-1559757175-5700dac835bb?w=800',
+        items: [
+            { name: 'Stroke Recovery', desc: 'Loss of movement or coordination after a stroke.', action: 'Neuro-Facilitation Techniques' },
+            { name: 'Parkinson’s Disease', desc: 'Tremors, stiffness, and slow movement.', action: 'Balance & Gait Retraining' },
+            { name: 'Multiple Sclerosis', desc: 'Fatigue and difficulty with muscle control.', action: 'Functional Maintenance Therapy' },
+            { name: 'Bell’s Palsy', desc: 'Sudden weakness in facial muscles.', action: 'Facial Muscle Re-education' }
+        ]
     }
-};
+];
 
 const SymptomsPage = () => {
     const theme = useTheme();
-    const [activeTab, setActiveTab] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('spine');
 
-    const handleTabChange = (event, newValue) => {
-        setActiveTab(newValue);
-    };
+    const filteredSymptoms = useMemo(() => {
+        if (!searchTerm) return symptomData.find(c => c.id === selectedCategory)?.items || [];
+
+        const allItems = symptomData.flatMap(c => c.items.map(i => ({ ...i, catTitle: c.title })));
+        return allItems.filter(i =>
+            i.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            i.desc.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [searchTerm, selectedCategory]);
 
     return (
-        <Box>
-            {/* Hero Banner */}
+        <Box sx={{ bgcolor: '#fdfdfd', minHeight: '100vh' }}>
+            {/* --- HERO SECTION --- */}
             <Box
                 sx={{
-                    mt: { xs: 8, md: 10 },
-                    py: { xs: 8, md: 10 },
-                    background: `radial-gradient(circle at top left, ${theme.palette.secondary.main}22 0, transparent 55%), linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 65%, #003150 100%)`,
+                    position: 'relative',
+                    pt: { xs: 8, md: 10 },
+                    pb: { xs: 4, md: 6 },
+                    background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
                     color: 'white',
+                    overflow: 'hidden',
                 }}
             >
-                <Container maxWidth="xl">
+                {/* Decorative Elements */}
+                <Box sx={{
+                    position: 'absolute', top: '-10%', right: '-5%', width: '400px', height: '400px',
+                    background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)', borderRadius: '50%'
+                }} />
+
+                <Container maxWidth="lg">
                     <Grid container spacing={6} alignItems="center">
                         <Grid item xs={12} md={7}>
-                            <Typography
-                                variant="overline"
-                                sx={{ letterSpacing: 3, fontWeight: 700, opacity: 0.9 }}
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8 }}
                             >
-                                SYMPTOM CHECK
-                            </Typography>
-                            <Typography
-                                variant="h2"
-                                sx={{ fontWeight: 800, mb: 3, lineHeight: 1.1 }}
-                            >
-                                Understand your pain.
-                                <br />
-                                Find the right care.
-                            </Typography>
-                            <Typography
-                                variant="h6"
-                                sx={{ opacity: 0.95, maxWidth: 620, lineHeight: 1.7 }}
-                            >
-                                Browse common symptoms for spine, joints and neurological issues and
-                                see how Sri Sai Priya Physiotherapy can help you recover safely.
-                            </Typography>
-                        </Grid>
+                                <Typography variant="overline" sx={{ letterSpacing: 4, fontWeight: 700, mb: 2, display: 'block', color: 'primary.light' }}>
+                                    AI-ASSISTED SYMPTOM GUIDE
+                                </Typography>
+                                <Typography variant="h1" sx={{ fontWeight: 800, fontSize: { xs: '2.5rem', md: '4rem' }, mb: 3, lineHeight: 1.1 }}>
+                                    Find Relief for Your <br />
+                                    <Box component="span" sx={{ color: 'primary.light' }}>Physical Discomfort</Box>
+                                </Typography>
+                                <Typography variant="h6" sx={{ mb: 5, opacity: 0.9, fontWeight: 400, maxWidth: 600 }}>
+                                    Compare your symptoms with common conditions and discover how
+                                    SRI SAI PRIYA PHYSIOTHERAPY's specialized therapies can accelerate your recovery.
+                                </Typography>
 
-                        <Grid item xs={12} md={5}>
-                            <Card
-                                sx={{
-                                    p: 3,
-                                    borderRadius: 4,
-                                    bgcolor: 'rgba(255,255,255,0.12)',
-                                    backdropFilter: 'blur(18px)',
-                                    border: '1px solid rgba(255,255,255,0.35)',
-                                }}
+                                {/* Search Bar */}
+                                <TextField
+                                    fullWidth
+                                    placeholder="Search symptoms (e.g. back pain, stiffness...)"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    sx={{
+                                        bgcolor: 'white',
+                                        borderRadius: 4,
+                                        '& .MuiOutlinedInput-root': {
+                                            borderRadius: 4,
+                                            height: 64,
+                                            fontSize: '1.1rem',
+                                            '& fieldset': { border: 'none' },
+                                            boxShadow: '0 10px 30px rgba(0,0,0,0.15)'
+                                        }
+                                    }}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start" sx={{ ml: 1 }}>
+                                                <SearchIcon color="primary" />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </motion.div>
+                        </Grid>
+                        <Grid item xs={12} md={5} sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 1 }}
                             >
-                                <Typography variant="subtitle2" sx={{ mb: 1, opacity: 0.85 }}>
-                                    Quick filters
-                                </Typography>
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                                    {['Back & Neck', 'Knee & Shoulder', 'Post-surgery', 'Neurology'].map(
-                                        (label, idx) => (
-                                            <Chip
-                                                key={idx}
-                                                label={label}
-                                                color="secondary"
-                                                variant="outlined"
-                                                sx={{
-                                                    bgcolor: 'rgba(255,255,255,0.12)',
-                                                    borderColor: 'rgba(255,255,255,0.4)',
-                                                    color: 'white',
-                                                }}
-                                            />
-                                        )
-                                    )}
-                                </Box>
-                                <Typography variant="body2" sx={{ mt: 2, opacity: 0.9 }}>
-                                    Unsure where to start? Scroll down and choose the body region that
-                                    best matches what you are feeling.
-                                </Typography>
-                            </Card>
+                                <Box
+                                    component="img"
+                                    src="/images/physio-illustration.svg"
+                                    sx={{
+                                        width: '100%',
+                                        maxHeight: 320,
+                                        objectFit: 'contain',
+                                        filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))'
+                                    }}
+                                    onError={(e) => e.target.src = 'https://cdni.iconscout.com/illustration/premium/thumb/physiotherapy-2974921-2477353.png'}
+                                />
+                            </motion.div>
                         </Grid>
                     </Grid>
                 </Container>
             </Box>
 
-            {/* Symptom Categories */}
-            <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
+            {/* --- CATEGORY SELECTOR --- */}
+            <Box sx={{ py: 10, bgcolor: '#f8fafc' }}>
                 <Container maxWidth="lg">
-                    <Tabs
-                        value={activeTab}
-                        onChange={handleTabChange}
-                        variant="scrollable"
-                        scrollButtons="auto"
-                        sx={{
-                            mb: 5,
-                            '& .MuiTab-root': {
-                                fontWeight: 600,
-                                fontSize: '0.95rem',
-                                textTransform: 'none',
-                                minHeight: 48,
-                            },
-                            '& .MuiTabs-indicator': {
-                                height: 3,
-                                borderRadius: 999,
-                            },
-                        }}
-                    >
-                        {symptomCategories.map((cat, index) => (
-                            <Tab key={index} label={cat.category} />
-                        ))}
-                    </Tabs>
+                    <Box sx={{ mb: 6, textAlign: 'center' }}>
+                        <Typography variant="h4" sx={{ fontWeight: 800, mb: 2 }}>Select a Body Region</Typography>
+                        <Typography variant="body1" color="text.secondary">Narrow down your symptoms by choosing a clinical area</Typography>
+                    </Box>
 
-                    <Grid container spacing={4}>
-                        {symptomCategories[activeTab].symptoms.map((symptom, index) => (
-                            <Grid item xs={12} md={4} key={index}>
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    <Grid container spacing={3}>
+                        {symptomData.map((cat) => (
+                            <Grid item xs={6} md={3} key={cat.id}>
+                                <Card
+                                    onClick={() => { setSelectedCategory(cat.id); setSearchTerm(''); }}
+                                    sx={{
+                                        cursor: 'pointer',
+                                        textAlign: 'center',
+                                        p: 3,
+                                        borderRadius: 5,
+                                        transition: 'all 0.3s ease',
+                                        border: '2px solid',
+                                        borderColor: selectedCategory === cat.id ? 'primary.main' : 'transparent',
+                                        bgcolor: selectedCategory === cat.id ? 'primary.main' : 'white',
+                                        color: selectedCategory === cat.id ? 'white' : 'text.primary',
+                                        boxShadow: selectedCategory === cat.id ? '0 15px 35px rgba(0, 109, 119, 0.25)' : '0 4px 15px rgba(0,0,0,0.05)',
+                                        '&:hover': {
+                                            transform: 'translateY(-5px)',
+                                            boxShadow: '0 15px 35px rgba(0,0,0,0.1)'
+                                        }
+                                    }}
                                 >
-                                    <Card
-                                        sx={{
-                                            height: '100%',
-                                            p: 3,
-                                            borderRadius: 4,
-                                            border: `1px solid ${theme.palette.divider}`,
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                borderColor: 'primary.main',
-                                                boxShadow: `0 12px 30px ${theme.palette.primary.main}15`,
-                                            },
-                                        }}
-                                    >
-                                        <CardContent>
-                                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-                                                <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                                                    {symptom.name}
-                                                </Typography>
-                                                <Chip
-                                                    label={symptom.severity}
-                                                    size="small"
-                                                    color={getSeverityColor(symptom.severity)}
-                                                    sx={{ fontWeight: 500 }}
-                                                />
-                                            </Box>
-
-                                            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                                                {symptom.description}
-                                            </Typography>
-
-                                            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
-                                                Common Causes:
-                                            </Typography>
-                                            <List dense disablePadding>
-                                                {symptom.causes.map((cause, i) => (
-                                                    <ListItem key={i} disablePadding sx={{ py: 0.25 }}>
-                                                        <ListItemIcon sx={{ minWidth: 24 }}>
-                                                            <FiberManualRecordIcon sx={{ fontSize: 8, color: 'primary.main' }} />
-                                                        </ListItemIcon>
-                                                        <ListItemText
-                                                            primary={cause}
-                                                            primaryTypographyProps={{ variant: 'body2', color: 'text.secondary' }}
-                                                        />
-                                                    </ListItem>
-                                                ))}
-                                            </List>
-                                        </CardContent>
-                                    </Card>
-                                </motion.div>
+                                    <Box sx={{ mb: 2, color: selectedCategory === cat.id ? 'white' : 'primary.main' }}>
+                                        {cat.icon}
+                                    </Box>
+                                    <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>{cat.title}</Typography>
+                                </Card>
                             </Grid>
                         ))}
                     </Grid>
                 </Container>
             </Box>
 
-            {/* Warning Signs */}
-            <Box sx={{ py: 10, bgcolor: 'background.default' }}>
-                <Container maxWidth="lg">
-                    <Grid container spacing={6} alignItems="center">
-                        <Grid item xs={12} md={6}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                                <WarningAmberIcon sx={{ fontSize: 40, color: 'warning.main' }} />
-                                <Typography variant="h3" sx={{ fontWeight: 700 }}>
-                                    When to Seek Help
+            {/* --- SYMPTOMS LIST --- */}
+            <Box sx={{ py: 10 }}>
+                <Container maxWidth="md">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={selectedCategory + searchTerm}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.4 }}
+                        >
+                            <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Typography variant="h5" sx={{ fontWeight: 800 }}>
+                                    {searchTerm ? `Results for "${searchTerm}"` : `${symptomData.find(c => c.id === selectedCategory)?.title} Symptoms`}
                                 </Typography>
+                                <Chip label={`${filteredSymptoms.length} Conditions`} variant="outlined" color="primary" />
                             </Box>
-                            <Typography variant="body1" color="text.secondary" paragraph>
-                                While many symptoms can be managed at home initially, certain signs require
-                                professional attention. Contact us immediately if you experience:
-                            </Typography>
-                            <List>
-                                {[
-                                    'Sudden severe pain without apparent cause',
-                                    'Numbness or weakness that spreads rapidly',
-                                    'Loss of bladder or bowel control',
-                                    'Pain accompanied by fever or unexplained weight loss',
-                                    'Symptoms that worsen despite rest and home care',
-                                    'Pain that disrupts sleep consistently',
-                                ].map((item, index) => (
-                                    <ListItem key={index} disablePadding sx={{ py: 0.5 }}>
-                                        <ListItemIcon sx={{ minWidth: 32 }}>
-                                            <FiberManualRecordIcon sx={{ fontSize: 10, color: 'warning.main' }} />
-                                        </ListItemIcon>
-                                        <ListItemText primary={item} />
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Card
-                                sx={{
-                                    p: 4,
-                                    borderRadius: 4,
-                                    bgcolor: `${theme.palette.primary.main}08`,
-                                    border: `1px solid ${theme.palette.primary.main}22`,
-                                }}
-                            >
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                                    <LocalHospitalIcon sx={{ fontSize: 36, color: 'primary.main' }} />
-                                    <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                                        Free Symptom Assessment
-                                    </Typography>
+
+                            {filteredSymptoms.length > 0 ? (
+                                filteredSymptoms.map((symptom, idx) => (
+                                    <Accordion
+                                        key={idx}
+                                        sx={{
+                                            mb: 2,
+                                            borderRadius: '16px !important',
+                                            '&:before': { display: 'none' },
+                                            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                                            border: '1px solid #eee'
+                                        }}
+                                    >
+                                        <AccordionSummary expandIcon={<ExpandMoreIcon color="primary" />}>
+                                            <Stack direction="row" spacing={2} alignItems="center">
+                                                <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main' }} />
+                                                <Typography sx={{ fontWeight: 700, fontSize: '1.1rem' }}>{symptom.name}</Typography>
+                                                {searchTerm && <Chip size="small" label={symptom.catTitle} sx={{ fontSize: '0.65rem' }} />}
+                                            </Stack>
+                                        </AccordionSummary>
+                                        <AccordionDetails sx={{ px: 4, pb: 4 }}>
+                                            <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.8 }}>
+                                                {symptom.desc}
+                                            </Typography>
+                                            <Box sx={{ p: 2.5, bgcolor: '#f0f9fa', borderRadius: 3, borderLeft: '4px solid', borderColor: 'primary.main' }}>
+                                                <Typography variant="subtitle2" sx={{ color: 'primary.dark', fontWeight: 800, mb: 0.5 }}>RECOMMENDED THERAPY</Typography>
+                                                <Typography variant="body2" sx={{ fontStyle: 'italic', fontWeight: 500 }}>{symptom.action}</Typography>
+                                            </Box>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                ))
+                            ) : (
+                                <Box sx={{ py: 10, textAlign: 'center' }}>
+                                    <Typography variant="h6" color="text.secondary">No matching symptoms found. Try another search term.</Typography>
                                 </Box>
-                                <Typography variant="body1" color="text.secondary" paragraph>
-                                    Not sure if physiotherapy is right for you? Book a free 15-minute
-                                    consultation with our specialists to discuss your symptoms.
-                                </Typography>
-                                <Button variant="contained" size="large" sx={{ borderRadius: 3 }}>
-                                    Book Free Assessment
-                                </Button>
-                            </Card>
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
+                </Container>
+            </Box>
+
+            {/* --- EMERGENCY BANNER --- */}
+            <Box sx={{ py: 10, bgcolor: '#fff5f5' }}>
+                <Container maxWidth="lg">
+                    <Grid container spacing={4} alignItems="center">
+                        <Grid item xs={12} md={8}>
+                            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+                                <WarningAmberIcon color="error" />
+                                <Typography variant="h5" sx={{ fontWeight: 800, color: '#c53030' }}>When to See a Doctor Immediately</Typography>
+                            </Stack>
+                            <Typography variant="body1" color="text.secondary">
+                                If you experience sudden loss of bowel/bladder control, severe unexplained weight loss, fever with back pain, or sudden severe weakness, please visit an emergency room immediately.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'left', md: 'right' } }}>
+                            <Button
+                                component={RouterLink}
+                                to="/book-appointment"
+                                variant="contained"
+                                color="error"
+                                size="large"
+                                sx={{ py: 2, px: 4, borderRadius: 3, fontWeight: 700 }}
+                            >
+                                Urgent Consultation
+                            </Button>
                         </Grid>
                     </Grid>
                 </Container>
             </Box>
 
-            {/* CTA */}
-            <Box
-                sx={{
-                    py: 8,
-                    textAlign: 'center',
-                    background: `linear-gradient(135deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
-                    color: 'white',
-                }}
-            >
+            {/* --- FOOTER CTA --- */}
+            <Box sx={{
+                py: 12,
+                textAlign: 'center',
+                background: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1576091160550-217359f4ecf8?w=1600')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                color: 'white'
+            }}>
                 <Container maxWidth="sm">
-                    <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
-                        Dont Let Pain Hold You Back
+                    <Typography variant="h3" sx={{ fontWeight: 800, mb: 3 }}>Ready to Start Your Recovery?</Typography>
+                    <Typography variant="h6" sx={{ mb: 5, opacity: 0.8, fontWeight: 300 }}>
+                        Our experts are here to help you move without pain. Book your clinical assessment today.
                     </Typography>
-                    <Typography sx={{ mb: 4, opacity: 0.9 }}>
-                        Our team is here to help you identify the cause and find relief.
-                    </Typography>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        sx={{
-                            bgcolor: 'white',
-                            color: 'white',
-                            '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
-                        }}
-                    >
-                        Schedule Appointment
-                    </Button>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+                        <Button
+                            component={RouterLink}
+                            to="/book-appointment"
+                            variant="contained"
+                            size="large"
+                            endIcon={<ArrowForwardIcon />}
+                            sx={{ py: 2, px: 5, borderRadius: 99, fontWeight: 700, bgcolor: 'primary.light', '&:hover': { bgcolor: 'primary.main' } }}
+                        >
+                            Book Appointment
+                        </Button>
+                        <Button
+                            component={RouterLink}
+                            to="/contact"
+                            variant="outlined"
+                            size="large"
+                            sx={{ py: 2, px: 5, borderRadius: 99, fontWeight: 700, color: 'white', borderColor: 'white', '&:hover': { borderColor: 'primary.light', color: 'primary.light' } }}
+                        >
+                            Contact Us
+                        </Button>
+                    </Stack>
                 </Container>
             </Box>
         </Box>

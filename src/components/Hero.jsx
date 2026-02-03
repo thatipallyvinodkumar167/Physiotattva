@@ -10,6 +10,7 @@ import {
 import { motion } from "framer-motion";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PhoneIcon from "@mui/icons-material/Phone";
+import { Link as RouterLink } from 'react-router-dom';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -26,7 +27,7 @@ const Hero = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        minHeight: "80vh",
         position: "relative",
         display: "flex",
         alignItems: "center",
@@ -56,9 +57,9 @@ const Hero = () => {
                 fontSize: { xs: "2.4rem", md: "3.6rem" },
               }}
             >
-              Sri Sai Priya Physiotherapy &
+              SRI SAI PRIYA
               <br />
-              Rehabilitation Center
+              <Typography component="span" variant="inherit" sx={{ color: theme.palette.primary.light }}>PHYSIOTHERAPY</Typography>
             </Typography>
 
             {/* Sub Heading */}
@@ -70,7 +71,7 @@ const Hero = () => {
                 color: "#d1fae5",
               }}
             >
-              Personalized Care • Proven Recovery • Compassionate Healing
+              Modern Clinics • Skilled Practitioners • Quality Care
             </Typography>
 
             {/* Description */}
@@ -82,9 +83,7 @@ const Hero = () => {
                 lineHeight: 1.7,
               }}
             >
-              At Sri Sai Priya Physiotherapy, we help you move better, live
-              stronger, and recover faster through evidence-based therapy,
-              advanced rehabilitation techniques, and patient-first care.
+              At SRI SAI PRIYA PHYSIOTHERAPY, we are committed to bring access to quality physio care through ultra-modern clinics and high-skilled practitioners to all.
             </Typography>
 
             {/* CTA Buttons */}
@@ -93,6 +92,8 @@ const Hero = () => {
               spacing={2.5}
             >
               <Button
+                component={RouterLink}
+                to="/services"
                 variant="contained"
                 size="large"
                 endIcon={<ArrowForwardIcon />}
@@ -112,6 +113,8 @@ const Hero = () => {
               </Button>
 
               <Button
+                component={RouterLink}
+                to="/book-appointment"
                 variant="outlined"
                 size="large"
                 sx={{
@@ -132,6 +135,8 @@ const Hero = () => {
               </Button>
 
               <Button
+                component={RouterLink}
+                to="/contact"
                 startIcon={<PhoneIcon />}
                 size="large"
                 sx={{

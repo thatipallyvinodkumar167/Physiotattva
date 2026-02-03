@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Container, Typography, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
 import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Link as RouterLink } from 'react-router-dom';
 
 const symptoms = [
     {
@@ -119,6 +120,8 @@ const SymptomTreatments = () => {
                                             {symptom.description}
                                         </Typography>
                                         <Button
+                                            component={RouterLink}
+                                            to="/symptoms"
                                             variant="text"
                                             color="primary"
                                             endIcon={<ArrowForwardIcon />}
@@ -135,6 +138,8 @@ const SymptomTreatments = () => {
 
                 <Box sx={{ mt: 8, textAlign: 'center' }}>
                     <Button
+                        component={RouterLink}
+                        to="/symptoms"
                         variant="outlined"
                         size="large"
                         sx={{

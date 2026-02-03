@@ -1,117 +1,197 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, IconButton, Divider, Link as MuiLink } from '@mui/material';
-import { Facebook, Twitter, Instagram, LinkedIn, Phone, Email, LocationOn } from '@mui/icons-material';
+import {
+    Box,
+    Container,
+    Grid,
+    Typography,
+    IconButton,
+    Divider,
+    Link as MuiLink,
+    Stack,
+    useTheme
+} from '@mui/material';
+import {
+    Facebook,
+    Twitter,
+    Instagram,
+    LinkedIn,
+    Phone,
+    Email,
+    LocationOn,
+    ArrowForward
+} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
+    const theme = useTheme();
+
+    const footerLinks = {
+        company: [
+            { name: 'About Us', path: '/about' },
+            { name: 'Our Team', path: '/about' },
+            { name: 'Careers', path: '/contact' },
+            { name: 'Contact', path: '/contact' },
+        ],
+        services: [
+            { name: 'Physiotherapy', path: '/services' },
+            { name: 'Chiropractic', path: '/services' },
+            { name: 'Sports Rehab', path: '/services' },
+            { name: 'Neuro Rehab', path: '/services' },
+        ],
+        resources: [
+            { name: 'Symptoms', path: '/symptoms' },
+            { name: 'Treatments', path: '/treatments' },
+            { name: 'Blogs', path: '/' },
+            { name: 'FAQs', path: '/' },
+        ]
+    };
+
+    const socialIcons = [
+        { icon: <Facebook fontSize="small" />, color: '#1877F2' },
+        { icon: <Twitter fontSize="small" />, color: '#1DA1F2' },
+        { icon: <Instagram fontSize="small" />, color: '#E4405F' },
+        { icon: <LinkedIn fontSize="small" />, color: '#0A66C2' },
+    ];
+
     return (
-        <Box sx={{ bgcolor: 'secondary.light', color: 'text.primary', pt: 8, pb: 4, mt: 'auto' }}>
+        <Box
+            component="footer"
+            sx={{
+                bgcolor: '#002233',
+                color: 'white',
+                pt: 10,
+                pb: 6,
+                position: 'relative',
+                overflow: 'hidden'
+            }}
+        >
+            {/* Background Accent */}
+            <Box sx={{
+                position: 'absolute',
+                bottom: '-10%',
+                left: '-5%',
+                width: '300px',
+                height: '300px',
+                background: 'radial-gradient(circle, rgba(0, 109, 119, 0.1) 0%, transparent 70%)',
+                borderRadius: '50%'
+            }} />
+
             <Container maxWidth="lg">
-                <Grid container spacing={5}>
-                    {/* Brand & Tagline */}
+                <Grid container spacing={6}>
+                    {/* Brand Section */}
                     <Grid item xs={12} md={4}>
-                        <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.dark' }}>
-                            Sri Sai Priya Physiotherapy
+                        <Typography
+                            variant="h4"
+                            sx={{
+                                fontWeight: 800,
+                                mb: 3,
+                                background: 'linear-gradient(45deg, #fff 30%, #00bcd4 90%)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                letterSpacing: '-0.5px'
+                            }}
+                        >
+                            SRI SAI PRIYA
                         </Typography>
-                        <Typography variant="body1" sx={{ mb: 3, maxWidth: 300 }}>
-                            Restoring movement, enhancing life. Your trusted partner in physiotherapy and rehabilitation.
+                        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.7)', mb: 4, lineHeight: 1.8, maxWidth: 320 }}>
+                            Delivering world-class physiotherapy and rehabilitation services across Bangalore and Hyderabad. Enhancing lives through evidence-based care.
                         </Typography>
-                        <Box sx={{ display: 'flex', gap: 1 }}>
-                            <IconButton color="primary" sx={{ bgcolor: 'white', '&:hover': { bgcolor: 'primary.light' } }}>
-                                <Facebook />
-                            </IconButton>
-                            <IconButton color="primary" sx={{ bgcolor: 'white', '&:hover': { bgcolor: 'primary.light' } }}>
-                                <Twitter />
-                            </IconButton>
-                            <IconButton color="primary" sx={{ bgcolor: 'white', '&:hover': { bgcolor: 'primary.light' } }}>
-                                <Instagram />
-                            </IconButton>
-                            <IconButton color="primary" sx={{ bgcolor: 'white', '&:hover': { bgcolor: 'primary.light' } }}>
-                                <LinkedIn />
-                            </IconButton>
-                        </Box>
-                    </Grid>
 
-                    {/* Quick Links */}
-                    <Grid item xs={12} sm={6} md={2}>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                            Quick Links
-                        </Typography>
-                        {['Home', 'About Us', 'Services', 'Doctors', 'Blog'].map((text) => (
-                            <Box key={text} sx={{ mb: 1 }}>
-                                <MuiLink
-                                    component={Link}
-                                    to={`/${text.toLowerCase().replace(' ', '-')}`}
-                                    sx={{ color: 'text.primary', textDecoration: 'none', '&:hover': { color: 'primary.main' } }}
+                        <Stack direction="row" spacing={1.5}>
+                            {socialIcons.map((item, idx) => (
+                                <IconButton
+                                    key={idx}
+                                    sx={{
+                                        color: 'white',
+                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        transition: 'all 0.3s ease',
+                                        '&:hover': {
+                                            bgcolor: item.color,
+                                            borderColor: item.color,
+                                            transform: 'translateY(-5px)'
+                                        }
+                                    }}
                                 >
-                                    {text}
-                                </MuiLink>
-                            </Box>
-                        ))}
+                                    {item.icon}
+                                </IconButton>
+                            ))}
+                        </Stack>
                     </Grid>
 
-                    {/* Services */}
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                            Our Services
-                        </Typography>
-                        {['Physiotherapy', 'Chiropractic', 'Sports Injury', 'Post-Op Rehab', 'Pediatric Therapy'].map((text) => (
-                            <Box key={text} sx={{ mb: 1 }}>
-                                <MuiLink
-                                    component={Link}
-                                    to="/services"
-                                    sx={{ color: 'text.primary', textDecoration: 'none', '&:hover': { color: 'primary.main' } }}
-                                >
-                                    {text}
-                                </MuiLink>
-                            </Box>
-                        ))}
-                    </Grid>
+                    {/* Columns */}
+                    <Grid item xs={12} md={8}>
+                        <Grid container spacing={4}>
+                            <Grid item xs={6} sm={4}>
+                                <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 3, color: 'primary.light' }}>Explore</Typography>
+                                <Stack spacing={2}>
+                                    {footerLinks.company.map((link) => (
+                                        <MuiLink
+                                            key={link.name}
+                                            component={Link}
+                                            to={link.path}
+                                            sx={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', transition: '0.3s', '&:hover': { color: 'white', pl: 1 } }}
+                                        >
+                                            {link.name}
+                                        </MuiLink>
+                                    ))}
+                                </Stack>
+                            </Grid>
 
-                    {/* Contact Info */}
-                    <Grid item xs={12} md={3}>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                            Contact Us
-                        </Typography>
-                        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-                            <LocationOn color="primary" />
-                            <Typography variant="body2">123 Healing Street, Wellness City, HC 56000</Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-                            <Phone color="primary" />
-                            <Typography variant="body2">+91 98765 43210</Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Email color="primary" />
-                            <Typography variant="body2">info@physiotattva.com</Typography>
-                        </Box>
+                            <Grid item xs={6} sm={4}>
+                                <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 3, color: 'primary.light' }}>Services</Typography>
+                                <Stack spacing={2}>
+                                    {footerLinks.services.map((link) => (
+                                        <MuiLink
+                                            key={link.name}
+                                            component={Link}
+                                            to={link.path}
+                                            sx={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', transition: '0.3s', '&:hover': { color: 'white', pl: 1 } }}
+                                        >
+                                            {link.name}
+                                        </MuiLink>
+                                    ))}
+                                </Stack>
+                            </Grid>
+
+                            <Grid item xs={12} sm={4}>
+                                <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 3, color: 'primary.light' }}>Contact</Typography>
+                                <Stack spacing={3}>
+                                    <Box sx={{ display: 'flex', gap: 2 }}>
+                                        <Email sx={{ color: 'primary.light', fontSize: 20 }} />
+                                        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)' }}>info@physiotattva.com</Typography>
+                                    </Box>
+                                    <Box sx={{ display: 'flex', gap: 2 }}>
+                                        <Phone sx={{ color: 'primary.light', fontSize: 20 }} />
+                                        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)' }}>+91 98765 43210</Typography>
+                                    </Box>
+                                    <Box sx={{ display: 'flex', gap: 2 }}>
+                                        <LocationOn sx={{ color: 'primary.light', fontSize: 20 }} />
+                                        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>
+                                            JP Nagar, Bangalore <br />
+                                            Jubilee Hills, Hyderabad
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
 
-                {/* Map Section */}
-                <Box sx={{ mt: 8, mb: 0, borderRadius: 4, overflow: 'hidden', height: 300, border: '1px solid', borderColor: 'divider' }}>
-                    <iframe
-                        title="Clinic Location"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.756627196238!2d77.6331922!3d12.9233633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae148d13264903%3A0x28976b921319c8d3!2sPhysiotattva%20-%20HSR%20Layout!5e0!3m2!1sen!2sin!4v1706617000000!5m2!1sen!2sin"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen=""
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                </Box>
+                <Divider sx={{ my: 6, borderColor: 'rgba(255,255,255,0.1)' }} />
 
-                <Divider sx={{ my: 4, borderColor: 'rgba(0,0,0,0.1)' }} />
-
-                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Typography variant="body2" color="text.secondary">
-                        © {new Date().getFullYear()} Sri Sai Priya Physiotherapy. All rights reserved.
+                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
+                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.4)' }}>
+                        © {new Date().getFullYear()} SRI SAI PRIYA PHYSIOTHERAPY. All rights reserved.
                     </Typography>
-                    <Box sx={{ mt: { xs: 2, sm: 0 } }}>
-                        <MuiLink href="#" sx={{ color: 'text.secondary', mr: 2 }}>Privacy Policy</MuiLink>
-                        <MuiLink href="#" sx={{ color: 'text.secondary' }}>Terms of Service</MuiLink>
-                    </Box>
+
+                    <Stack direction="row" spacing={4}>
+                        {['Privacy Policy', 'Terms of Use', 'Sitemap'].map((text) => (
+                            <MuiLink key={text} href="#" sx={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none', fontSize: '0.875rem', '&:hover': { color: 'white' } }}>
+                                {text}
+                            </MuiLink>
+                        ))}
+                    </Stack>
                 </Box>
             </Container>
         </Box>

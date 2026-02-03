@@ -14,63 +14,64 @@ import {
 import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { Link as RouterLink } from 'react-router-dom';
 
 const treatments = [
     {
-        title: 'Manual Therapy',
+        title: 'Pain Management',
         image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400',
         duration: '45-60 min',
-        description: 'Hands-on techniques including massage, joint mobilization, and manipulation to reduce pain and improve mobility.',
-        benefits: ['Pain relief', 'Improved range of motion', 'Muscle relaxation', 'Better circulation'],
+        description: 'Advanced techniques for managing chronic back pain, neck pain, and joint inflammation using multidisciplinary approaches.',
+        benefits: ['Long-term pain relief', 'Reduced inflammation', 'Better mobility', 'Non-invasive treatment'],
     },
     {
-        title: 'Electrotherapy',
+        title: 'Chiropractic Care',
         image: 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400',
-        duration: '20-30 min',
-        description: 'Advanced electrical stimulation techniques including TENS, ultrasound, and interferential therapy for pain management.',
-        benefits: ['Pain reduction', 'Muscle stimulation', 'Tissue healing', 'Inflammation control'],
+        duration: '30-45 min',
+        description: 'Specialized spinal adjustments and decompression to correct alignment, relieve nerve pressure, and improve posture.',
+        benefits: ['Spinal alignment', 'Posture correction', 'Nerve pressure relief', 'Increased flexibility'],
     },
     {
-        title: 'Exercise Therapy',
+        title: 'Sports Rehab',
         image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400',
         duration: '45-60 min',
-        description: 'Customized exercise programs designed to strengthen muscles, improve flexibility, and enhance functional capacity.',
-        benefits: ['Strength building', 'Flexibility', 'Balance improvement', 'Endurance'],
+        description: 'Goal-oriented rehabilitation for athletes to recover from injuries like sprains, strains, and ligament tears.',
+        benefits: ['Fast recovery', 'Enhanced performance', 'Injury prevention', 'Strength building'],
     },
     {
-        title: 'Dry Needling',
+        title: 'Post-Surgery Rehab',
         image: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=400',
-        duration: '30-45 min',
-        description: 'Targeted insertion of thin needles into trigger points to release muscle tension and alleviate chronic pain.',
-        benefits: ['Trigger point release', 'Muscle relaxation', 'Pain relief', 'Improved mobility'],
+        duration: '60 min',
+        description: 'Intensive rehabilitation following orthopedic surgeries like ACL reconstruction, hip replacement, or knee replacement.',
+        benefits: ['Proper healing', 'Restored function', 'Scar tissue management', 'Joint stabilization'],
     },
     {
-        title: 'Hydrotherapy',
+        title: 'Neuro Rehab',
         image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400',
-        duration: '45-60 min',
-        description: 'Water-based exercises and treatments that reduce joint stress while improving strength and mobility.',
-        benefits: ['Low-impact exercise', 'Joint relief', 'Muscle relaxation', 'Cardiovascular health'],
+        duration: '60-90 min',
+        description: 'Specialized therapy for stroke recovery, Parkinson’s disease, and other neurological conditions to regain independence.',
+        benefits: ['Better balance', 'Gait training', 'Functional independence', 'Muscle coordination'],
     },
     {
-        title: 'Spinal Decompression',
+        title: 'Home Physiotherapy',
         image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400',
-        duration: '30-45 min',
-        description: 'Non-surgical treatment that gently stretches the spine to relieve pressure on discs and nerves.',
-        benefits: ['Disc pressure relief', 'Nerve decompression', 'Posture improvement', 'Back pain relief'],
+        duration: '60 min',
+        description: 'Professional physiotherapy care delivered in the comfort of your home for those with limited mobility or busy schedules.',
+        benefits: ['Convenient care', 'Personalized attention', 'Family involvement', 'Same-day recovery focus'],
     },
     {
-        title: 'Cupping Therapy',
+        title: 'Pediatric Physical Therapy',
         image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400',
-        duration: '20-30 min',
-        description: 'Ancient technique using suction cups to increase blood flow, reduce inflammation, and promote healing.',
-        benefits: ['Blood circulation', 'Toxin removal', 'Muscle recovery', 'Pain relief'],
+        duration: '45 min',
+        description: 'Compassionate care for children with developmental delays, cerebral palsy, or orthopedic conditions.',
+        benefits: ['Milestone achievement', 'Improved mobility', 'Fun & engaging sessions', 'Early intervention'],
     },
     {
-        title: 'Kinesio Taping',
+        title: 'Women’s Health',
         image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400',
-        duration: '15-20 min',
-        description: 'Elastic therapeutic tape applied to support muscles and joints while allowing full range of motion.',
-        benefits: ['Joint support', 'Pain reduction', 'Swelling control', 'Muscle support'],
+        duration: '45 min',
+        description: 'Specialized care for pelvic health, pre and post-natal recovery, and overall wellness for women of all ages.',
+        benefits: ['Core strengthening', 'Pelvic floor health', 'Post-natal recovery', 'Pain management'],
     },
 ];
 
@@ -133,9 +134,9 @@ const TreatmentsPage = () => {
                                             image={treatment.image}
                                             alt={treatment.title}
                                             sx={{
-                                                height: 200,          // 🔒 fixed height
-                                                width: '100%',        // 🔒 full width
-                                                objectFit: 'cover',   // ✨ prevents stretching
+                                                height: 160,
+                                                width: '100%',
+                                                objectFit: 'cover',
                                             }}
                                         />
 
@@ -171,6 +172,8 @@ const TreatmentsPage = () => {
                                             </Box>
 
                                             <Button
+                                                component={RouterLink}
+                                                to="/contact"
                                                 variant="outlined"
                                                 size="small"
                                                 endIcon={<ArrowForwardIcon />}
@@ -246,11 +249,13 @@ const TreatmentsPage = () => {
                         Our specialists are ready to help you on your path to recovery.
                     </Typography>
                     <Button
+                        component={RouterLink}
+                        to="/book-appointment"
                         variant="contained"
                         size="large"
                         sx={{
                             bgcolor: 'white',
-                            color: 'white',
+                            color: 'primary.main',
                             '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
                         }}
                     >

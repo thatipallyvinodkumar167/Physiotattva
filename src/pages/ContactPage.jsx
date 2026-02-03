@@ -18,7 +18,7 @@ const contactInfo = [
     {
         icon: <LocationOnIcon fontSize="large" />,
         title: 'Visit Us',
-        lines: ['123 Health Street', 'Bangalore, Karnataka 560001'],
+        lines: ['#280, 5th Phase, JP Nagar, Bangalore', 'Road No. 36, Jubilee Hills, Hyderabad'],
     },
     {
         icon: <PhoneIcon fontSize="large" />,
@@ -67,6 +67,7 @@ const ContactPage = () => {
                     background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
                     color: 'white',
                     textAlign: 'center',
+                    marginTop: 8,
                 }}
             >
                 <Container maxWidth="md">
@@ -207,31 +208,7 @@ const ContactPage = () => {
                             </Paper>
                         </Grid>
 
-                        {/* Map Section */}
-                        <Grid item xs={12} md={6}>
-                            <Typography variant="h4" sx={{ fontWeight: 700, mb: 4 }}>
-                                Find Us Here
-                            </Typography>
 
-                            <Box
-                                sx={{
-                                    height: 450,
-                                    borderRadius: 4,
-                                    overflow: 'hidden',
-                                    boxShadow: '0 8px 30px rgba(0,0,0,0.1)',
-                                }}
-                            >
-                                <iframe
-                                    title="Clinic Location"
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5990035987487!2d77.5945627!3d12.9715987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzE3LjgiTiA3N8KwMzUnNDAuNCJF!5e0!3m2!1sen!2sin!4v1234567890"
-                                    width="100%"
-                                    height="100%"
-                                    style={{ border: 0 }}
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                />
-                            </Box>
-                        </Grid>
                     </Grid>
                 </Container>
             </Box>

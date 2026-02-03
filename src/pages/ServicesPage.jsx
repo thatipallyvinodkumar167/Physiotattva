@@ -23,15 +23,14 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // Services list
 const servicesList = [
-    { title: 'Musculoskeletal Physio', icon: <FitnessCenterIcon />, desc: 'Relieve pain and restore function for back, neck, and joint conditions with personalized therapy.', slug: 'musculoskeletal-physio' },
-    { title: 'Sports Rehabilitation', icon: <SportsKabaddiIcon />, desc: 'Targeted recovery plans for athletes to regain strength and return to peak performance.', slug: 'sports-rehabilitation' },
-    { title: 'Post-Surgery Rehab', icon: <HealingIcon />, desc: 'Specialized care following orthopedic procedures to ensure optimal healing and mobility.', slug: 'post-surgery-rehab' },
-    { title: 'Neurological Physio', icon: <AccessibilityNewIcon />, desc: 'Advanced physical therapy for stroke, Parkinson’s, and multiple sclerosis recovery.', slug: 'neurological-physio' },
-    { title: 'Geriatric Care', icon: <ElderlyIcon />, desc: 'Enhancing the quality of life for seniors through balance training and pain management.', slug: 'geriatric-care' },
-    { title: 'Pediatric Physio', icon: <BabyChangingStationIcon />, desc: 'Compassionate care focused on developmental milestones and childhood conditions.', slug: 'pediatric-physio' },
-    { title: 'Neuro Rehabilitation in Hyderabad', icon: <AccessibilityNewIcon />, desc: 'Comprehensive neuro rehabilitation programs to restore mobility, independence and confidence.', slug: 'neuro-rehabilitation-hyderabad' },
-    { title: 'Stroke Rehabilitation Center in Hyderabad', icon: <AccessibilityNewIcon />, desc: 'Intensive, goal‑oriented stroke rehab with gait, balance and upper limb training.', slug: 'stroke-rehabilitation-center-hyderabad' },
-    // ... add other services here
+    { title: 'Physiotherapy', icon: <FitnessCenterIcon />, desc: 'Expert care for musculoskeletal conditions, post-surgery rehab, and chronic pain management.', slug: 'physiotherapy' },
+    { title: 'Chiropractic', icon: <AccessibilityNewIcon />, desc: 'Specialized spinal adjustments and alignment for better posture and pain relief.', slug: 'chiropractic' },
+    { title: 'Sports Physiotherapy', icon: <SportsKabaddiIcon />, desc: 'Targeted recovery and performance enhancement for athletes under expert guidance.', slug: 'sports-physiotherapy' },
+    { title: 'Neuro Rehab', icon: <AccessibilityNewIcon />, desc: 'Advanced rehabilitation for stroke, Parkinson’s, and other neurological conditions.', slug: 'neuro-rehab' },
+    { title: 'Pediatric Care', icon: <BabyChangingStationIcon />, desc: 'Compassionate care focused on developmental milestones and childhood conditions.', slug: 'pediatric-physio' },
+    { title: 'Vestibular Rehab', icon: <HealingIcon />, desc: 'Specialized therapy for balance disorders, dizziness, and inner ear issues.', slug: 'vestibular-rehabilitation' },
+    { title: 'Geriatric Physio', icon: <ElderlyIcon />, desc: 'Enhancing mobility and quality of life for seniors through balance and pain management.', slug: 'geriatric-care' },
+    { title: 'Women’s Health', icon: <HealingIcon />, desc: 'Support for pre/post-natal care, pelvic health, and overall wellness for women.', slug: 'womens-health' },
 ];
 
 // Services component

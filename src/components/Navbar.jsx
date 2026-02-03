@@ -11,6 +11,7 @@ import {
     ListItemText,
     Box,
     Container,
+    Paper,
     useScrollTrigger,
     Slide,
 } from '@mui/material';
@@ -72,19 +73,19 @@ const Navbar = (props) => {
                     <CloseIcon />
                 </IconButton>
             </Box>
-<Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
-    <Box
-        component="img"
-        src="/images/logo.png"
-        alt="Company Logo"
-        sx={{
-            height: 55,
-            objectFit: 'contain',
-            mixBlendMode: 'multiply',
-            background: 'transparent',
-        }}
-    />
-</Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+                <Box
+                    component="img"
+                    src="/images/logo.png"
+                    alt="Company Logo"
+                    sx={{
+                        height: 55,
+                        objectFit: 'contain',
+                        mixBlendMode: 'multiply',
+                        background: 'transparent',
+                    }}
+                />
+            </Box>
 
             <List sx={{ mt: 2 }}>
                 {navLinks.map((item) => (
@@ -166,8 +167,7 @@ const Navbar = (props) => {
                             }}
                         >
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <LocationOnIcon sx={{ fontSize: 18 }} />
-                                <Typography variant="body2">Bangalore, India</Typography>
+                                <Typography variant="body2" sx={{ fontWeight: 700 }}>SRI SAI PRIYA: Enhancing Lives</Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
@@ -208,7 +208,7 @@ const Navbar = (props) => {
                                             display: { xs: 'none', sm: 'block' }
                                         }}
                                     >
-                                        Sri Sai Priya<br />Physiotherapy
+                                        SRI SAI PRIYA
                                     </Typography>
                                 </Box>
                             </Box>
@@ -247,6 +247,54 @@ const Navbar = (props) => {
                                         {item.title}
                                     </Button>
                                 ))}
+
+                                {/* Cities Dropdown */}
+                                <Box sx={{ position: 'relative', ml: 1, '&:hover .cities-dropdown': { opacity: 1, visibility: 'visible', transform: 'translateY(0)' } }}>
+                                    <Button
+                                        sx={{
+                                            color: 'text.primary',
+                                            fontSize: '1rem',
+                                            fontWeight: 600,
+                                            '&:hover': { bgcolor: 'transparent', color: 'primary.main' }
+                                        }}
+                                        endIcon={<LocationOnIcon sx={{ fontSize: 18 }} />}
+                                    >
+                                        Cities
+                                    </Button>
+                                    <Box
+                                        className="cities-dropdown"
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            left: 0,
+                                            pt: 1,
+                                            opacity: 0,
+                                            visibility: 'hidden',
+                                            transform: 'translateY(10px)',
+                                            transition: 'all 0.3s ease',
+                                            zIndex: 1000,
+                                        }}
+                                    >
+                                        <Paper elevation={4} sx={{ borderRadius: 3, overflow: 'hidden', minWidth: 160 }}>
+                                            {['Bangalore', 'Hyderabad'].map((city) => (
+                                                <Button
+                                                    key={city}
+                                                    fullWidth
+                                                    sx={{
+                                                        justifyContent: 'flex-start',
+                                                        px: 3,
+                                                        py: 1.5,
+                                                        color: 'text.primary',
+                                                        fontWeight: 600,
+                                                        '&:hover': { bgcolor: 'primary.light', color: 'primary.main' }
+                                                    }}
+                                                >
+                                                    {city}
+                                                </Button>
+                                            ))}
+                                        </Paper>
+                                    </Box>
+                                </Box>
 
                                 <Button
                                     variant="contained"

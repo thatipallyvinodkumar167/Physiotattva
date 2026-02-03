@@ -17,8 +17,8 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 const stats = [
     { icon: <GroupsIcon fontSize="large" />, value: '10,000+', label: 'Happy Patients' },
     { icon: <LocalHospitalIcon fontSize="large" />, value: '15+', label: 'Years Experience' },
-    { icon: <EmojiEventsIcon fontSize="large" />, value: '50+', label: 'Expert Doctors' },
-    { icon: <VerifiedIcon fontSize="large" />, value: '98%', label: 'Success Rate' },
+    { icon: <EmojiEventsIcon fontSize="large" />, value: '100+', label: 'Expert Doctors' },
+    { icon: <VerifiedIcon fontSize="large" />, value: '30+', label: 'Rehab Centers' },
 ];
 
 const teamMembers = [
@@ -98,9 +98,7 @@ const AboutPage = () => {
                                 variant="h6"
                                 sx={{ opacity: 0.9, maxWidth: 600, lineHeight: 1.7 }}
                             >
-                                Sri Sai Priya Physiotherapy is a Bangalore-based rehab centre
-                                focused on evidence-based treatments, personalised care, and
-                                measurable outcomes for every patient who walks through our doors.
+                                At SRI SAI PRIYA PHYSIOTHERAPY, we are committed to bring access to quality physio care through ultra-modern clinics and high-skilled practitioners to all. Our evidence-based treatments and personalised care ensure measurable outcomes for every patient.
                             </Typography>
                         </Grid>
 
@@ -141,12 +139,10 @@ const AboutPage = () => {
                                 OUR STORY
                             </Typography>
                             <Typography variant="h3" sx={{ fontWeight: 700, mb: 3 }}>
-                                A Legacy of Healing Excellence
+                                SRI SAI PRIYA: A Legacy of Healing Excellence
                             </Typography>
                             <Typography variant="body1" color="text.secondary" paragraph>
-                                Founded in 2010, Physiotattva began with a simple mission: to provide
-                                accessible, high-quality physiotherapy care to our community. What started
-                                as a small clinic has grown into a trusted healthcare institution.
+                                Founded with a simple mission—to providing accessible, high-quality physiotherapy care to our community—SRI SAI PRIYA PHYSIOTHERAPY has grown into a trusted healthcare institution with centers across Bangalore and Hyderabad.
                             </Typography>
                             <Typography variant="body1" color="text.secondary">
                                 Today, we're proud to have helped over 10,000 patients recover from
