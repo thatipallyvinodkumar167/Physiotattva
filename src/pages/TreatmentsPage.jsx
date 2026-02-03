@@ -104,7 +104,7 @@ const TreatmentsPage = () => {
                 <Container maxWidth="lg">
                     <Grid container spacing={4}>
                         {treatments.map((treatment, index) => (
-                            <Grid item xs={12} sm={6} lg={4} key={index} display="flex" justifyContent="center">
+                            <Grid item xs={12} sm={6} md={4} lg={4} key={index} display="flex" justifyContent="center">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
@@ -115,7 +115,8 @@ const TreatmentsPage = () => {
                                     <Card
                                         sx={{
                                             maxWidth: 360,
-                                            height: '100%',
+                                            width: '100%',
+                                            height: '100%',      // 🔒 equal height
                                             display: 'flex',
                                             flexDirection: 'column',
                                             borderRadius: 4,
@@ -126,13 +127,18 @@ const TreatmentsPage = () => {
                                             },
                                         }}
                                     >
+
                                         <CardMedia
                                             component="img"
-                                            height="180"
                                             image={treatment.image}
                                             alt={treatment.title}
-                                            sx={{ objectFit: 'cover' }}
+                                            sx={{
+                                                height: 200,          // 🔒 fixed height
+                                                width: '100%',        // 🔒 full width
+                                                objectFit: 'cover',   // ✨ prevents stretching
+                                            }}
                                         />
+
                                         <CardContent sx={{ flexGrow: 1, p: 3 }}>
                                             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                                                 <Typography variant="h6" sx={{ fontWeight: 600 }}>

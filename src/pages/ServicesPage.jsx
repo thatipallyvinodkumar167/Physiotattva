@@ -79,7 +79,7 @@ const Services = ({ limit }) => {
                 {/* Services Grid */}
                 <Grid container spacing={4}>
                     {displayedServices.map((service, index) => (
-                        <Grid item xs={12} sm={4} md={4} key={index}>
+                        <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -89,7 +89,7 @@ const Services = ({ limit }) => {
                             >
                                 <Card
                                     sx={{
-                                        maxWidth: 400,
+                                        maxWidth: 380,
                                         width: '100%',
                                         mx: 'auto',
                                         position: 'relative',
