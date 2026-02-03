@@ -104,27 +104,7 @@ const AboutPage = () => {
                             </Typography>
                         </Grid>
 
-                        <Grid item xs={12} md={5}>
-                            <Box
-                                component={motion.div}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6 }}
-                                viewport={{ once: true }}
-                            >
-                                <Box
-                                    component="img"
-                                    src="/images/bangalore-clinic.png"
-                                    alt="Sri Sai Priya Physiotherapy clinic"
-                                    sx={{
-                                        width: '100%',
-                                        borderRadius: 4,
-                                        boxShadow: '0 24px 60px rgba(0,0,0,0.35)',
-                                        border: '4px solid rgba(255,255,255,0.7)',
-                                    }}
-                                />
-                            </Box>
-                        </Grid>
+
                     </Grid>
                 </Container>
             </Box>
