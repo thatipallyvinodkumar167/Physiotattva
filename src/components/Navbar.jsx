@@ -204,8 +204,9 @@ const Navbar = (props) => {
                                             fontWeight: 800,
                                             color: 'primary.main',
                                             lineHeight: 1.1,
-                                            fontSize: { xs: '0.9rem', sm: '1.2rem' },
-                                            display: { xs: 'none', sm: 'block' }
+                                            fontSize: { xs: '0.9rem', sm: '1.1rem', lg: '1.3rem' },
+                                            display: { xs: 'none', sm: 'block' },
+                                            whiteSpace: 'nowrap'
                                         }}
                                     >
                                         SRI SAI PRIYA
@@ -214,7 +215,7 @@ const Navbar = (props) => {
                             </Box>
 
                             {/* Desktop Nav */}
-                            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 0.5 }}>
+                            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: { md: 0, lg: 0.5 } }}>
                                 {navLinks.map((item) => (
                                     <Button
                                         key={item.title}
@@ -222,8 +223,10 @@ const Navbar = (props) => {
                                         to={item.path}
                                         sx={{
                                             color: 'text.primary',
-                                            fontSize: '1rem',
+                                            fontSize: { md: '0.85rem', lg: '1rem' },
                                             fontWeight: 600,
+                                            px: { md: 1, lg: 1.5 },
+                                            minWidth: 'auto',
                                             position: 'relative',
                                             '&::after': {
                                                 content: '""',
@@ -253,8 +256,9 @@ const Navbar = (props) => {
                                     <Button
                                         sx={{
                                             color: 'text.primary',
-                                            fontSize: '1rem',
+                                            fontSize: { md: '0.85rem', lg: '1rem' },
                                             fontWeight: 600,
+                                            px: { md: 1, lg: 1.5 },
                                             '&:hover': { bgcolor: 'transparent', color: 'primary.main' }
                                         }}
                                         endIcon={<LocationOnIcon sx={{ fontSize: 18 }} />}
@@ -302,10 +306,12 @@ const Navbar = (props) => {
                                     component={Link}
                                     to="/book-appointment"
                                     sx={{
-                                        px: 4,
+                                        px: { md: 2, lg: 4 },
                                         marginLeft: 1,
                                         fontWeight: 800,
-                                        borderRadius: '30px'
+                                        borderRadius: '30px',
+                                        fontSize: { md: '0.85rem', lg: '0.9rem' },
+                                        whiteSpace: 'nowrap'
                                     }}
                                 >
                                     Book Appointment
