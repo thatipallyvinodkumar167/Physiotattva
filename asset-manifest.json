@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Physiotattva/static/css/main.d20c7539.css",
+    "main.js": "/Physiotattva/static/js/main.ccc45d3d.js",
+    "static/media/slick.svg": "/Physiotattva/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/Physiotattva/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/Physiotattva/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/Physiotattva/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/Physiotattva/index.html",
+    "main.d20c7539.css.map": "/Physiotattva/static/css/main.d20c7539.css.map",
+    "main.ccc45d3d.js.map": "/Physiotattva/static/js/main.ccc45d3d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d20c7539.css",
+    "static/js/main.ccc45d3d.js"
+  ]
+}
